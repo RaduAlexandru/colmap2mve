@@ -196,7 +196,7 @@ def create_views(input,output,camera_list,imgs_list):
 
 
         img_path=os.path.normpath(input + "/" + img_info.name)
-        copyfile(img_path, os.path.normpath(save_path + "/undistored.png"))
+        copyfile(img_path, os.path.normpath(save_path + "/undistorted.png"))
 
         # # thumbnail
         im = Image.open(img_path)
@@ -273,7 +273,6 @@ def create_synth(output,camera_list, imgs_list, points3D_list):
         val=rot[0][2]
 
 
-        #TODO fix rotation writing
         f.write(str(focal_length) + " " + str(cam.d_0) + " " +  str(0) +  "\n")
         # f.write(str(rot_str[0]) + " " + str(rot_str[1]) + " " + str(rot_str[2]) + "\n" )
         # f.write(rot_str[3] + " " +rot_str[4] + " " +rot_str[5] + "\n" )
