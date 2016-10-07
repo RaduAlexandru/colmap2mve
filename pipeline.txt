@@ -1,0 +1,13 @@
+#Pipeline for running a full reconstruction
+
+colmap2mve.py -i <colmap-data> -o <scene-dir>     #create a scene readable by MVE from the output of colmap
+enhancer -b <scene-dir>                           #Make a backup of the original images
+enhancer -e <scene-dir>                           #Enhance the contrast
+dmrecon -s2 <scene-dir>                           #Reconstruct the depth maps
+enhancer -r <scene-dir>                           #Restore the original images
+inpainter -L<level> <scene-dir>                   #inpaint the depth map
+
+
+scene2pset -F2 <scene-dir> <scene-dir>/pset-L2.ply
+fssrecon <scene-dir>/pset-L2.ply <scene-dir>/surface-L2.ply
+meshclean -t300 <scene-dir>/surface-L2.ply <scene-dir>/surface-L2-clean.ply
